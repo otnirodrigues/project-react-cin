@@ -10,17 +10,29 @@ const feedReducer = (state, action) => {
             // retorna lista de itens
             return action.payload;
         case 'add_item':
-            console.log('implementar');
-            return state;
+            let id = state.length + 1;
+
+            newState = [...state,
+                {
+                    title: action.payload.titulo,
+                    link: action.payload.urlFeed,
+                    description: action.payload.description,
+                    pubDate: action.payload.pubDate,
+                    id: id
+                }
+            ];
+
+            return newState;
+
         case 'delete_item':
-            console.log('implementar');
-            return state;
+            newState = state.filter((item) => item.id !== action.payload);
+
+            return newState;
         case 'restore_state':
             console.log('implementar');
             return state;
         case 'delete_all':
-            console.log('implementar');
-            return state;
+            return [];
         default:
             return state;
     }
@@ -28,13 +40,13 @@ const feedReducer = (state, action) => {
 
 const addItem = dispatch => {
     return (titulo, urlFeed, callback) => {
-        console.log('implementar');
+        dispatch({ type: 'add_item', payload: { titulo, urlFeed, description,pubDate } }); // cahamando o reducer para adicionar o item
     };
 };
 
 const deleteItem = dispatch => {
     return (id) => {
-        console.log('implementar');
+        dispatch({ type: 'delete_item', payload: id });
     };
 };
 
@@ -47,7 +59,11 @@ const fetchItems = dispatch => async (feedURL) => {
     // console.log(feed.rss.channel.language);//linguagem do RSS feed
     //console.log(feed.rss.channel.item);//todos os itens do feed - notícias
 
-    console.log('implementar');
+    let items = [];
+    for(let i = 0; i < feed.rss.channel.item.length; i++){
+        items.push(feed.rss.channel.item[i]);
+    }
+    dispatch({ type: 'fetch_items', payload: items });
 };
 
 const restoreState = dispatch => async () => {
@@ -59,7 +75,7 @@ const restoreState = dispatch => async () => {
 
 const deleteAll = dispatch => {
     return () => {
-        console.log('implementar');
+        dispatch({ type: 'delete_all' });
     }
 }
 

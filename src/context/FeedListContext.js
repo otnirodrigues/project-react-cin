@@ -6,11 +6,17 @@ const feedListReducer = (state, action) => {
     switch (action.type) {
         case 'add_feed':
             // adicionando feed 
+            // Gerando o id apartir da quantidade de noticias 
+
+            let id = state.length+1;
+
+            // criando o state
             newState = [
                 ...state,
                 {
                     titulo: action.payload.titulo,
                     urlFeed: action.payload.urlFeed,
+                    id: id,
                 }
             ]
             alert('item adicionado!')

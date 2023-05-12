@@ -19,7 +19,8 @@ const App = () => {
         component={IndexScreen} 
         options={({navigation}) => ({
           headerRight: () => (
-            <TouchableOpacity onPress={() => console.log('implementar')}>
+            // Ativando o botão novo
+            <TouchableOpacity onPress={() => navigation.navigate('Add')}> 
               <Feather name="plus" size={30} />
             </TouchableOpacity>
           )
