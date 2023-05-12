@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { Context } from '../context/FeedListContext'
 
 const IndexScreen = ({ navigation }) => {
-    const { state } = useContext(Context);
+    const { state, deleteFeed } = useContext(Context);
 
     return (
         <>
@@ -17,7 +17,7 @@ const IndexScreen = ({ navigation }) => {
                         <TouchableOpacity onPress={() => navigation.navigate('Show', { id: item.urlFeed })}>
                             <View style={styles.row}>
                                 <Text style={styles.title}>{item.titulo}</Text>
-                                <TouchableOpacity onPress={() => { console.log('implementar'); }}>
+                                <TouchableOpacity onPress={() => { deleteFeed(item.titulo) }}>
                                     <Feather style={styles.icon} name="trash" />
                                 </TouchableOpacity>
                             </View>
