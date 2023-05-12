@@ -1,20 +1,38 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import createDataContext from './createDataContext';
 
 const feedListReducer = (state, action) => {
     let newState = [];
     switch (action.type) {
         case 'add_feed':
-            console.log('implementar');
-            return state;
+            // adicionando feed 
+            newState = [
+                ...state,
+                {
+                    titulo: action.payload.titulo,
+                    urlFeed: action.payload.urlFeed,
+                }
+            ]
+            alert('item adicionado!')
+            return newState;
+
         case 'delete_feed':
-            console.log('implementar');
-            return state;
+            // remover feed
+            newState = [
+                ...state.filter((feed) => feed.titulo !== action.payload.titulo)
+            ]
+            alert('Item removido!')
+            return newState;
+
         case 'restore_state':
-            console.log('implementar');
             return state;
+            
         case 'delete_all':
-            console.log('implementar');
-            return state;
+            // limpando todos os itens 
+            //e retornando um array vazio
+            AsyncStorage.removeItem('feeds');
+            alert('Feeds removidos!')
+            return [];
         default:
             return state;
     }
@@ -22,25 +40,30 @@ const feedListReducer = (state, action) => {
 
 const addFeed = dispatch => {
     return (titulo, urlFeed, callback) => {
-        console.log('implementar');
+       dispatch({ type: 'add_feed', payload: { titulo, urlFeed } });
+
+       if(callback){
+           callback();
+       }
+
     };
 };
 
 const deleteFeed = dispatch => {
-    return (id) => {
-        console.log('implementar');
+    return (titulo) => {
+        dispatch({ type: 'delete_feed', payload: { titulo } });
     };
 };
-
+// chamando o reducer restore_state
 const restoreState = dispatch => async () => {
     return () => {
-        console.log('implementar');
+        dispatch({type: 'restore_state'})
     }
 }
-
+// chamando reducer delete_all
 const deleteAll = dispatch => {
     return () => {
-        console.log('implementar');
+        dispatch({type:'delete_all'})
     }
 }
 

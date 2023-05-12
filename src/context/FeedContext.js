@@ -7,8 +7,8 @@ const feedReducer = (state, action) => {
     let newState = [];
     switch (action.type) {
         case 'fetch_items':
-            console.log('implementar');
-            return state;
+            // retorna lista de itens
+            return action.payload;
         case 'add_item':
             console.log('implementar');
             return state;
