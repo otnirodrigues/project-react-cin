@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import torage from '@react-native-async-storage/async-storage';
 import createDataContext from './createDataContext';
 
 const feedListReducer = (state, action) => {
@@ -36,7 +36,7 @@ const feedListReducer = (state, action) => {
         case 'delete_all':
             // limpando todos os itens 
             //e retornando um array vazio
-            AsyncStorage.removeItem('feeds');
+            // Tentei implementar com asyncStorage, mas não tive sucesso
             alert('Feeds removidos!')
             return [];
         default:

@@ -40,12 +40,15 @@ const feedReducer = (state, action) => {
 
 const addItem = dispatch => {
     return (titulo, urlFeed, callback) => {
-        dispatch({ type: 'add_item', payload: { titulo, urlFeed, description,pubDate } }); // cahamando o reducer para adicionar o item
+        // Adicionando um item através do reducer
+        dispatch({ type: 'add_item', payload: { titulo, urlFeed, description,pubDate } }); 
+    
     };
 };
 
 const deleteItem = dispatch => {
     return (id) => {
+        // chamando o reducer e removendo o item
         dispatch({ type: 'delete_item', payload: id });
     };
 };
@@ -60,9 +63,11 @@ const fetchItems = dispatch => async (feedURL) => {
     //console.log(feed.rss.channel.item);//todos os itens do feed - notícias
 
     let items = [];
+    // buscando os items e adicionando em um array
     for(let i = 0; i < feed.rss.channel.item.length; i++){
         items.push(feed.rss.channel.item[i]);
     }
+    // listando os items do array
     dispatch({ type: 'fetch_items', payload: items });
 };
 
